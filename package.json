@@ -21,7 +21,7 @@
     ],
     "*.{css,scss}": [
       "yarn run prettier --write",
-      "yarn run stylelint --fix"
+      "yarn run stylelint --fix --allow-empty-input"
     ],
     "!(*.ts|*.tsx|*.css|*.scss)": [
       "yarn run prettier --ignore-unknown --write"
