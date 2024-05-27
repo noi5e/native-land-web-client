@@ -1,6 +1,6 @@
 on: [workflow_dispatch]
 jobs:
-  build:
+  lost-pixel-update:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
