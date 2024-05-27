@@ -16,6 +16,14 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
+      - name: Create .env.local File # so that front page map can be displayed in GitHub Actions's app instance
+        run: |
+          touch .env.local
+          echo VITE_MAPBOX_TOKEN={{ secrets.VITE_MAPBOX_TOKEN }} >> .env.local
+          echo VITE_MAPBOX_STYLE={{ secrets.VITE_MAPBOX_STYLE }} >> .env.local
+          echo VITE_TERRITORIES_TILESET_URL={{ secrets.VITE_TERRITORIES_TILESET_URL }} >> .env.local
+          echo VITE_TERRITORIES_TILESET_NAME={{ secrets.VITE_TERRITORIES_TILESET_NAME }} >> .env.local
+
       - name: Build Storybook
         run: yarn build-storybook
 
