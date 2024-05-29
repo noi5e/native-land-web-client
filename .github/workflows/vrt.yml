@@ -1,0 +1,34 @@
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Lost Pixel
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Create .env.local File # so that front page map can be displayed in GitHub Actions's app instance
+        run: |
+          touch .env.local
+          echo VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }} >> .env.local
+          echo VITE_MAPBOX_STYLE=${{ secrets.VITE_MAPBOX_STYLE }} >> .env.local
+          echo VITE_TERRITORIES_TILESET_URL=${{ secrets.VITE_TERRITORIES_TILESET_URL }} >> .env.local
+          echo VITE_TERRITORIES_TILESET_NAME=${{ secrets.VITE_TERRITORIES_TILESET_NAME }} >> .env.local
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Lost Pixel
+        uses: lost-pixel/lost-pixel@v3.16.0
+        env:
+          LOST_PIXEL_API_KEY: ${{ secrets.LOST_PIXEL_API_KEY }}
