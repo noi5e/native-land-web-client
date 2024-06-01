@@ -1,4 +1,5 @@
 import FrontPageMap from "../FrontPageMap";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
 import {
   withRouter,
   reactRouterParameters,
@@ -27,5 +28,17 @@ export default {
 export const Primary = {
   args: {
     navBarHeight: "6rem",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    userEvent.type(
+      canvas.getByTestId("woot"),
+      import.meta.env.VITE_MAPBOX_TOKEN,
+    );
+
+    await waitFor(async () => {
+      await expect(canvas.getByTestId("woot")).toBeInTheDocument();
+    });
   },
 };

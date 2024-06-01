@@ -150,6 +150,7 @@ export default function FrontPageMap({
 
   return (
     <>
+      <input id="woot" data-testid="woot" style={{ height: "75px" }} />
       <Map
         mapboxAccessToken={
           import.meta.env.VITE_MAPBOX_TOKEN ||
